@@ -1,0 +1,15 @@
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\bin\Debug\net9.0\UltimateDotNetMastery.Core.deps.json
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\bin\Debug\net9.0\UltimateDotNetMastery.Core.runtimeconfig.json
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\bin\Debug\net9.0\UltimateDotNetMastery.Core.dll
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\bin\Debug\net9.0\UltimateDotNetMastery.Core.pdb
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\obj\Debug\net9.0\UltimateDotNetMastery.Core.csproj.AssemblyReference.cache
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\obj\Debug\net9.0\UltimateDotNetMastery.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\obj\Debug\net9.0\UltimateDotNetMastery.Core.AssemblyInfoInputs.cache
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\obj\Debug\net9.0\UltimateDotNetMastery.Core.AssemblyInfo.cs
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\obj\Debug\net9.0\UltimateDotNetMastery.Core.csproj.CoreCompileInputs.cache
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\obj\Debug\net9.0\UltimateDotNetMastery.Core.sourcelink.json
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\obj\Debug\net9.0\UltimateDotNetMastery.Core.dll
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\obj\Debug\net9.0\refint\UltimateDotNetMastery.Core.dll
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\obj\Debug\net9.0\UltimateDotNetMastery.Core.pdb
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\obj\Debug\net9.0\UltimateDotNetMastery.Core.genruntimeconfig.cache
+C:\Projects\UltimateDotNetMastery\src\Core\UltimateDotNetMastery.Core\obj\Debug\net9.0\ref\UltimateDotNetMastery.Core.dll
