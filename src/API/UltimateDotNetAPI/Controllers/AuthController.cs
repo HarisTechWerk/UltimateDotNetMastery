@@ -7,6 +7,7 @@ using System.Text;
 using UltimateDotNetMastery.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace UltimateDotNetAPI.Controllers;
 
 [Route("api/[controller]")]

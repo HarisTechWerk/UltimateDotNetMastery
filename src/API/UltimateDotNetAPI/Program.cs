@@ -26,27 +26,38 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+// ✅ Read the JWT Key from Configuration
+var jwtKey = builder.Configuration["Jwt:Key"];
+if (string.IsNullOrEmpty(jwtKey) || jwtKey.Length < 32)
+{
+    throw new Exception("JWT Key is missing or too short!");
+}
+var key = Encoding.UTF8.GetBytes(jwtKey);
+
+
 // Configure JWT Authentication
-var key = Encoding.UTF8.GetBytes("MySuperDuperLuperSecretKey1234567890");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = false,
-            ValidateAudience = false,
+            ValidateIssuer = true,
+            ValidateAudience = true,
             ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(key)
         };
     });
 
 builder.Services.AddScoped<UserService>();
 
-// Register DataSeeder
+// ✅ Remove duplicate key definition (the error in your code)
 builder.Services.AddScoped<DataSeeder>();
 
 var app = builder.Build();
 
+// Seed Data
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -62,6 +73,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();  // ✅ Missing in your code, add this!
 app.UseAuthorization();
 app.MapControllers();
 

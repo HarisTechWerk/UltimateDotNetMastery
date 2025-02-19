@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UltimateDotNetMastery.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e1307af99858a43c33469cbb5b5304ee5f29aa8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+91822fcf75f5d909be84e69813efba85980b7723")]
 [assembly: System.Reflection.AssemblyProductAttribute("UltimateDotNetMastery.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UltimateDotNetMastery.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

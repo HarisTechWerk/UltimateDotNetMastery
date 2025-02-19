@@ -9,6 +9,7 @@
       "UltimateDotNetAPI/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Authorization": "9.0.2",
+          "Microsoft.AspNetCore.Identity": "2.3.0",
           "Microsoft.AspNetCore.OpenApi": "9.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.2",

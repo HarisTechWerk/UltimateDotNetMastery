@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using UltimateDotNetMastery.Core.Services;
 using UltimateDotNetMastery.Core.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+
 
 namespace UltimateDotNetAPI.Controllers;
 
@@ -11,10 +14,12 @@ namespace UltimateDotNetAPI.Controllers;
 public class UsersController : ControllerBase
 {
   private readonly UserService _userService;
+  private readonly UserManager<ApplicationUser> _userManager;
 
-  public UsersController(UserService userService)
+  public UsersController(UserService userService, UserManager<ApplicationUser> userManager)
   {
     _userService = userService;
+    _userManager = userManager;
   }
 
   [HttpGet]
@@ -22,6 +27,25 @@ public class UsersController : ControllerBase
   public IActionResult GetUsers()
   {
     return Ok(_userService.GetUsers());
+  }
+
+  [HttpGet("profile")]
+  [Authorize]
+  public async Task<IActionResult> GetProfile()
+  {
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    if (userId == null)
+    {
+      return Unauthorized();
+    }
+
+    var user = await _userManager.FindByIdAsync(userId);
+    if (user == null)
+    {
+      return NotFound("User not found.");
+    }
+
+    return Ok(new { user.FullName, user.Email });
   }
 
   [HttpPost]
