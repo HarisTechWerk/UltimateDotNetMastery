@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch .NET API",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/API/UltimateDotNetAPI/bin/Debug/net9.0/UltimateDotNetAPI.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/API/UltimateDotNetAPI",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Users": "${workspaceFolder}"
+            }
+        }
+    ]
+}

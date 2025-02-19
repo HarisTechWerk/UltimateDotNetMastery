@@ -7,8 +7,41 @@ using UltimateDotNetMastery.Core.Data;
 using UltimateDotNetMastery.Core.Models;
 using UltimateDotNetMastery.Core.Services;
 using UltimateDotNetMastery.Core.SeedData;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "UltimateDotNetAPI", Version = "v1" });
+
+    // 🔑 Enable JWT in Swagger UI
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter 'Bearer' [space] and then your token in the text input below. Example: \"Bearer eyJhbGciOiJIUzI1...\""
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new List<string>()
+        }
+    });
+});
+
 
 // Add Services to the container.
 builder.Services.AddControllers();
@@ -32,10 +65,10 @@ if (string.IsNullOrEmpty(jwtKey) || jwtKey.Length < 32)
 {
     throw new Exception("JWT Key is missing or too short!");
 }
-var key = Encoding.UTF8.GetBytes(jwtKey);
 
+var keyBytes = Encoding.UTF8.GetBytes(jwtKey); // ✅ Ensure it's always byte[]
+var securityKey = new SymmetricSecurityKey(keyBytes); // ✅ Correctly create the security key
 
-// Configure JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -46,7 +79,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(key)
+            IssuerSigningKey = securityKey // ✅ Correctly pass SymmetricSecurityKey here
         };
     });
 
@@ -73,7 +106,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication();  // ✅ Missing in your code, add this!
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
