@@ -1,0 +1,15 @@
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\bin\Debug\net9.0\DIP_DependencyInversionDemo.exe
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\bin\Debug\net9.0\DIP_DependencyInversionDemo.deps.json
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\bin\Debug\net9.0\DIP_DependencyInversionDemo.runtimeconfig.json
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\bin\Debug\net9.0\DIP_DependencyInversionDemo.dll
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\bin\Debug\net9.0\DIP_DependencyInversionDemo.pdb
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\obj\Debug\net9.0\DIP_DependencyInversionDemo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\obj\Debug\net9.0\DIP_DependencyInversionDemo.AssemblyInfoInputs.cache
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\obj\Debug\net9.0\DIP_DependencyInversionDemo.AssemblyInfo.cs
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\obj\Debug\net9.0\DIP_DependencyInversionDemo.csproj.CoreCompileInputs.cache
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\obj\Debug\net9.0\DIP_DependencyInversionDemo.sourcelink.json
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\obj\Debug\net9.0\DIP_DependencyInversionDemo.dll
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\obj\Debug\net9.0\refint\DIP_DependencyInversionDemo.dll
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\obj\Debug\net9.0\DIP_DependencyInversionDemo.pdb
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\obj\Debug\net9.0\DIP_DependencyInversionDemo.genruntimeconfig.cache
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\DIP_DependencyInversionDemo\obj\Debug\net9.0\ref\DIP_DependencyInversionDemo.dll
