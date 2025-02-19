@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "LSP_LiskovSubstitutionDemo/1.0.0": {
+        "runtime": {
+          "LSP_LiskovSubstitutionDemo.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LSP_LiskovSubstitutionDemo/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,15 @@
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\obj\Debug\net9.0\LSP_LiskovSubstitutionDemo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\obj\Debug\net9.0\LSP_LiskovSubstitutionDemo.AssemblyInfoInputs.cache
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\obj\Debug\net9.0\LSP_LiskovSubstitutionDemo.AssemblyInfo.cs
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\obj\Debug\net9.0\LSP_LiskovSubstitutionDemo.csproj.CoreCompileInputs.cache
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\obj\Debug\net9.0\LSP_LiskovSubstitutionDemo.sourcelink.json
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\bin\Debug\net9.0\LSP_LiskovSubstitutionDemo.exe
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\bin\Debug\net9.0\LSP_LiskovSubstitutionDemo.deps.json
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\bin\Debug\net9.0\LSP_LiskovSubstitutionDemo.runtimeconfig.json
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\bin\Debug\net9.0\LSP_LiskovSubstitutionDemo.dll
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\bin\Debug\net9.0\LSP_LiskovSubstitutionDemo.pdb
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\obj\Debug\net9.0\LSP_LiskovSubstitutionDemo.dll
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\obj\Debug\net9.0\refint\LSP_LiskovSubstitutionDemo.dll
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\obj\Debug\net9.0\LSP_LiskovSubstitutionDemo.pdb
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\obj\Debug\net9.0\LSP_LiskovSubstitutionDemo.genruntimeconfig.cache
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\LSP_LiskovSubstitutionDemo\obj\Debug\net9.0\ref\LSP_LiskovSubstitutionDemo.dll
