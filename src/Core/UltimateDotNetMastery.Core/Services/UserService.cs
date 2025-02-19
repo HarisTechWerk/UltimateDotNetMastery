@@ -12,16 +12,15 @@ public class UserService
         _context = context;
     }
 
-    public List<User> GetUsers()
+    public List<ApplicationUser> GetUsers()
     {
         return _context.Users.ToList();
     }
 
-    public User CreateUser(string name, string email)
+    public async Task<ApplicationUser?> CreateUser(ApplicationUser user)
     {
-        var user = new User { Name = name, Email = email };
         _context.Users.Add(user);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return user;
     }
 }

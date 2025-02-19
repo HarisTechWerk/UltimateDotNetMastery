@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using UltimateDotNetMastery.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UltimateDotNetAPI.Controllers;
 
@@ -24,18 +25,32 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
+    [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] RegisterModel model)
     {
-        var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName };
+        if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
+        {
+            return BadRequest("Email and password are required");
+        }
+        var user = new ApplicationUser
+        {
+            UserName = model.Email,
+            Email = model.Email,
+            FullName = model.FullName ?? "unknown"
+        };
+
         var result = await _userManager.CreateAsync(user, model.Password);
 
         if (!result.Succeeded)
+        {
             return BadRequest(result.Errors);
+        }
 
         return Ok("User registered successfully!");
     }
 
     [HttpPost("login")]
+    [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
         var user = await _userManager.FindByEmailAsync(model.Email);
@@ -49,6 +64,22 @@ public class AuthController : ControllerBase
         var token = GenerateJwtToken(user);
         return Ok(new { Token = token });
     }
+
+    [HttpGet("profile")]
+    [Authorize] // 🔒 Only logged-in users can access
+    public async Task<IActionResult> GetProfile()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
+            return Unauthorized();
+
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null)
+            return NotFound("User not found");
+
+        return Ok(new { user.FullName, user.Email, user.UserName });
+    }
+
 
     private string GenerateJwtToken(ApplicationUser user)
     {
@@ -72,13 +103,13 @@ public class AuthController : ControllerBase
 
 public class RegisterModel
 {
-    public string FullName { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public string? FullName { get; set; }
+    public string? Email { get; set; }
+    public string? Password { get; set; }
 }
 
 public class LoginModel
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public string? Email { get; set; }
+    public string? Password { get; set; }
 }

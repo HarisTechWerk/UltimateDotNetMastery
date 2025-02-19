@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using UltimateDotNetMastery.Core.Services;
 using UltimateDotNetMastery.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UltimateDotNetAPI.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
@@ -16,20 +18,26 @@ public class UsersController : ControllerBase
   }
 
   [HttpGet]
+  [Authorize(Roles = "Admin")]
   public IActionResult GetUsers()
   {
     return Ok(_userService.GetUsers());
   }
 
   [HttpPost]
-  public IActionResult CreateUser([FromBody] User user)
+  [AllowAnonymous]
+  public async Task<IActionResult> CreateUser([FromBody] ApplicationUser user)
   {
-    if (user == null || string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.Email))
+    if (user == null || string.IsNullOrEmpty(user.FullName) || string.IsNullOrEmpty(user.Email))
     {
       return BadRequest("Invalid user data.");
     }
 
-    var createdUser = _userService.CreateUser(user.Name, user.Email);
+    var createdUser = await _userService.CreateUser(user);
+    if (createdUser == null)
+    {
+      return BadRequest("User creation failed.");
+    }
     return CreatedAtAction(nameof(GetUsers), new { id = createdUser.Id }, createdUser);
   }
 }

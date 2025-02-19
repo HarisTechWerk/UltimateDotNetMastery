@@ -6,9 +6,14 @@ using System.Text;
 using UltimateDotNetMastery.Core.Data;
 using UltimateDotNetMastery.Core.Models;
 using UltimateDotNetMastery.Core.Services;
+using UltimateDotNetMastery.Core.SeedData;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add Services to the container.
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // Connect to SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -37,12 +42,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddScoped<UserService>();
 
-// Add Services to the container.
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Register DataSeeder
+builder.Services.AddScoped<DataSeeder>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var seeder = services.GetRequiredService<DataSeeder>();
+    await seeder.SeedAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
