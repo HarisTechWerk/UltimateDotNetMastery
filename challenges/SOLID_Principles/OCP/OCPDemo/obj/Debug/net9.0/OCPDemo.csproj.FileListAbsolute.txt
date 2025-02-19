@@ -1,0 +1,15 @@
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\bin\Debug\net9.0\OCPDemo.exe
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\bin\Debug\net9.0\OCPDemo.deps.json
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\bin\Debug\net9.0\OCPDemo.runtimeconfig.json
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\bin\Debug\net9.0\OCPDemo.dll
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\bin\Debug\net9.0\OCPDemo.pdb
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\obj\Debug\net9.0\OCPDemo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\obj\Debug\net9.0\OCPDemo.AssemblyInfoInputs.cache
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\obj\Debug\net9.0\OCPDemo.AssemblyInfo.cs
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\obj\Debug\net9.0\OCPDemo.csproj.CoreCompileInputs.cache
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\obj\Debug\net9.0\OCPDemo.sourcelink.json
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\obj\Debug\net9.0\OCPDemo.dll
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\obj\Debug\net9.0\refint\OCPDemo.dll
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\obj\Debug\net9.0\OCPDemo.pdb
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\obj\Debug\net9.0\OCPDemo.genruntimeconfig.cache
+C:\Projects\UltimateDotNetMastery\challenges\SOLID_Principles\OCP\OCPDemo\obj\Debug\net9.0\ref\OCPDemo.dll
