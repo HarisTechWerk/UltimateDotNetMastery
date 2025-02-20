@@ -9,5 +9,5 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    // public override DbSet<User> Users { get; set; }
+    public DbSet<ApplicationUser> ApplicationUsers { get; set; } // ✅ Ensure this exists
 }

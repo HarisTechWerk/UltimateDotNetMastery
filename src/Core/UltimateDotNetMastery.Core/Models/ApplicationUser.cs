@@ -4,5 +4,5 @@ namespace UltimateDotNetMastery.Core.Models;
 
 public class ApplicationUser : IdentityUser
 {
-    public required string FullName { get; set; }
+    public string FullName { get; set; } = string.Empty; // ✅ Default value to prevent null issues
 }

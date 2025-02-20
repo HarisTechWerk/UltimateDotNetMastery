@@ -11,11 +11,14 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to DI container
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "UltimateDotNetAPI", Version = "v1" });
 
-    // 🔑 Enable JWT in Swagger UI
+    // 🔑 Enable JWT authentication in Swagger UI
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -42,12 +45,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
-// Add Services to the container.
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 // Connect to SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -59,15 +56,14 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-// ✅ Read the JWT Key from Configuration
+// ✅ Read JWT settings
 var jwtKey = builder.Configuration["Jwt:Key"];
 if (string.IsNullOrEmpty(jwtKey) || jwtKey.Length < 32)
 {
     throw new Exception("JWT Key is missing or too short!");
 }
 
-var keyBytes = Encoding.UTF8.GetBytes(jwtKey); // ✅ Ensure it's always byte[]
-var securityKey = new SymmetricSecurityKey(keyBytes); // ✅ Correctly create the security key
+var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -79,18 +75,28 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = securityKey // ✅ Correctly pass SymmetricSecurityKey here
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+        };
+
+        // ❌ Prevent automatic 302 redirects to /Account/Login
+        options.Events = new JwtBearerEvents
+        {
+            OnChallenge = context =>
+            {
+                context.HandleResponse(); // Stop default behavior
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                return context.Response.WriteAsync("Unauthorized: Invalid or missing token");
+            }
         };
     });
 
-builder.Services.AddScoped<UserService>();
 
-// ✅ Remove duplicate key definition (the error in your code)
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<DataSeeder>();
 
 var app = builder.Build();
 
-// Seed Data
+// ✅ Seed Data
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -98,7 +104,7 @@ using (var scope = app.Services.CreateScope())
     await seeder.SeedAsync();
 }
 
-// Configure the HTTP request pipeline.
+// ✅ Middleware Order Fix
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -106,7 +112,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication();
+app.UseAuthentication();  // ✅ Ensure this comes before Authorization
 app.UseAuthorization();
 app.MapControllers();
 

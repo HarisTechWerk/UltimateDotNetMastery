@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-
 namespace UltimateDotNetAPI.Controllers;
 
-[Authorize]
+[Authorize] // ✅ All routes require authentication by default
 [ApiController]
-[Route("api/[controller]")]
+// [Route("api/[controller]")]
+[Route("api/Users")] // ✅ Use a more descriptive route
 public class UsersController : ControllerBase
 {
   private readonly UserService _userService;
@@ -22,46 +22,36 @@ public class UsersController : ControllerBase
     _userManager = userManager;
   }
 
+  // ✅ Get All Users (Requires Admin Role)
   [HttpGet]
-  [Authorize(Roles = "Admin")]
+  // [Authorize(Roles = "Admin")] // ✅ Uncomment to require Admin role
   public IActionResult GetUsers()
   {
     return Ok(_userService.GetUsers());
   }
 
+  // ✅ Get Profile (Authenticated Users)
   [HttpGet("profile")]
   [Authorize]
   public async Task<IActionResult> GetProfile()
   {
+    Console.WriteLine("🍊 GetProfile Endpoint Hit in UserController"); // DEBUG LOG
+
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     if (userId == null)
     {
-      return Unauthorized();
+      Console.WriteLine("🛑 Token invalid or missing userId"); // DEBUG LOG
+      return Unauthorized("Invalid Token or Expired");
     }
 
     var user = await _userManager.FindByIdAsync(userId);
     if (user == null)
     {
+      Console.WriteLine("🛑 User not found in DB"); // DEBUG LOG
       return NotFound("User not found.");
     }
 
-    return Ok(new { user.FullName, user.Email });
-  }
-
-  [HttpPost]
-  [AllowAnonymous]
-  public async Task<IActionResult> CreateUser([FromBody] ApplicationUser user)
-  {
-    if (user == null || string.IsNullOrEmpty(user.FullName) || string.IsNullOrEmpty(user.Email))
-    {
-      return BadRequest("Invalid user data.");
-    }
-
-    var createdUser = await _userService.CreateUser(user);
-    if (createdUser == null)
-    {
-      return BadRequest("User creation failed.");
-    }
-    return CreatedAtAction(nameof(GetUsers), new { id = createdUser.Id }, createdUser);
+    Console.WriteLine($"🟢 Returning profile for user: {user.Email}"); // DEBUG LOG
+    return Ok(new { FullName = user.FullName, Email = user.Email, UserName = user.UserName });
   }
 }

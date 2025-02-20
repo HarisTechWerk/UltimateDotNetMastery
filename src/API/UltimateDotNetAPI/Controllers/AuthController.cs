@@ -7,6 +7,7 @@ using System.Text;
 using UltimateDotNetMastery.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace UltimateDotNetAPI.Controllers;
 
@@ -23,10 +24,9 @@ public class AuthController : ControllerBase
         _userManager = userManager;
         _signInManager = signInManager;
         _configuration = configuration;
-
     }
 
-    // ✅ User Registration Endpoint
+    // ✅ User Registration
     [HttpPost("register")]
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] RegisterModel model)
@@ -48,7 +48,7 @@ public class AuthController : ControllerBase
         return Ok("User registered successfully!");
     }
 
-    // ✅ User Login Endpoint
+    // ✅ User Login
     [HttpPost("login")]
     [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
@@ -56,12 +56,8 @@ public class AuthController : ControllerBase
         if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
             return BadRequest("Email and password are required");
 
-        // var user = await _userManager.FindByEmailAsync(model.Email);
         var normalizedEmail = model.Email.ToUpper();
-        // var user = await _userManager.Users.FirstOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail);
-        var user = await _userManager.Users
-    .AsQueryable() // ✅ Ensure it's IQueryable
-    .FirstOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail);
+        var user = await _userManager.Users.FirstOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail);
 
         if (user == null)
             return Unauthorized("Invalid email or password");
@@ -74,14 +70,13 @@ public class AuthController : ControllerBase
         return Ok(new { Token = token });
     }
 
-    // ✅ Get User Profile (Protected Route)
     [HttpGet("profile")]
-    [Authorize] // 🔒 Only logged-in users can access
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] // ✅ Ensure JWT is used for Auth
     public async Task<IActionResult> GetProfile()
     {
         Console.WriteLine("🍊 GetProfile Endpoint Hit"); // DEBUG LOG
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(userId))
         {
             Console.WriteLine("🛑 Token invalid or missing userId"); // DEBUG LOG
@@ -95,25 +90,25 @@ public class AuthController : ControllerBase
             return NotFound("User not found");
         }
 
-        Console.WriteLine("🟢 Returning profile for user: {user.Email}"); // DEBUG LOG
+        Console.WriteLine($"🟢 Returning profile for user: {user.Email}"); // DEBUG LOG
         return Ok(new { FullName = user.FullName, Email = user.Email, UserName = user.UserName });
     }
 
-    // ✅ JWT Token Generation Method
+
+    // ✅ Generate JWT Token
     private string GenerateJwtToken(ApplicationUser user)
     {
         var jwtKey = _configuration["Jwt:Key"];
-        var keyBytes = Encoding.UTF8.GetBytes(jwtKey ?? "YourLongSecureFallbackKey_32+Characters!");
+        var keyBytes = Encoding.UTF8.GetBytes(jwtKey ?? throw new InvalidOperationException("JWT Key is missing!"));
 
         var claims = new List<Claim>
-    {
-        new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-        new Claim(JwtRegisteredClaimNames.Email, user.Email ?? ""),
-        new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName ?? ""),
-        new Claim(ClaimTypes.NameIdentifier, user.Id) // 🔥 Required for profile retrieval
-    };
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email ?? ""),
+            new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName ?? ""),
+            new Claim(ClaimTypes.NameIdentifier, user.Id)
+        };
 
-        // ✅ Fix: Use keyBytes correctly here
         var securityKey = new SymmetricSecurityKey(keyBytes);
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
